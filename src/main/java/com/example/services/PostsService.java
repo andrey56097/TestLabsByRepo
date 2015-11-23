@@ -5,26 +5,30 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import com.example.models.Post;
-import com.example.models.User;
+import com.example.models.*;
+import com.example.repositories.*;
 
 @Service
 public class PostsService {
-	private static final List<Post> INITIAL_POSTS = Arrays.asList(
-            new Post("Admin", "First post", new Date()),
-            new Post("Tester", "Second post", new Date()),
-            new Post("Admin", "Third post", new Date())
-        );
+	@Autowired
+	  private UserRepository usersRepo;
+	  @Autowired
+	  private PostRepository postsRepo;
 
-        private List<Post> posts = new ArrayList<Post>(INITIAL_POSTS);
+	  public Page<Post> getPosts(int page, int pageSize) {
+	    User currentUser = usersRepo.findOne(1L);
+	    return postsRepo.findByAuthorInOrderByCreatedAtDesc(
+	        currentUser.getSubscriptions(),
+	        new PageRequest(page-1, pageSize) // spring рахує сторінки з нуля
+	    );
+	  }
 
-        public List<Post> getRecentPosts() {
-            return posts;
-        }
-
-        public void addPost(Post p) {
-            posts.add(p);
-        }
+	  public void addPost(String text) {
+	    User currentUser = usersRepo.findOne(1L);
+	    postsRepo.save(new Post(currentUser, text, new Date()));
+	  }
 }

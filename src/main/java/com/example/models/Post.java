@@ -17,7 +17,7 @@ public class Post {
 	
 	@NotNull
 	@ManyToOne
-    private User author;
+	 private User author;
     
 	@NotBlank
     @Size(min = 1, max = 2048)
