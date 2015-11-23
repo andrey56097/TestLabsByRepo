@@ -34,6 +34,7 @@ public class User {
 
 	  public User() {}
 	  
+	  
 	public User(String login) {
 		this.login = login;
 	}
@@ -84,8 +85,5 @@ public class User {
 
 	public void setSubscriptions(Set<User> subscriptions) {
 		this.subscriptions = subscriptions;
-	}
-
-	 // get/set методи
-	  
+	} 
 }

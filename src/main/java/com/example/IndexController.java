@@ -36,6 +36,4 @@ public class IndexController {
 	        postsService.addPost(new User("Unknown"), postText, new Date()));
 	        return "redirect:home";
 	    }
-	
-	
 }
