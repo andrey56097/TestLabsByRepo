@@ -34,6 +34,13 @@ public class User {
 
 	  public User() {}
 	  
+	  public User(String login, String email, String password) {
+			this.login = login;
+			this.email = email;
+			this.password = password;
+		}
+
+	  
 	  
 	public User(String login) {
 		this.login = login;
